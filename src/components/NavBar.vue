@@ -1,5 +1,5 @@
 <template>
-    <div id="nav" class="d-flex justify-content-between p-2 mb-5 align-items-center">
+    <div id="nav" class="d-flex justify-content-between p-2 align-items-center">
         <div id="logo" class="col-6">
             <router-link to="/"><img :src="logo" alt="" width="100%"></router-link>
         </div>
@@ -21,6 +21,7 @@ export default{
 
 #nav{
     background-color: #222;
+    border-bottom: 4px solid #111;
 }
 #logo img{
     width: 40px;
@@ -29,7 +30,6 @@ export default{
 #menu button{
     padding: 5px;
     color: #fff;
-    /* background-color: red; */
 }
 
 </style>
