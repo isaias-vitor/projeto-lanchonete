@@ -1,6 +1,7 @@
 <template>
     <div id="form-burger" class="d-flex justify-content-center mt-5">
-        <form class="col-4">
+        <form class="col-4" @submit="fazPedido">
+            <Message :msg="mensagemSucesso" v-show="mensagemSucesso"/>
             <div class="mb-4">
                 <label for="nome" class="form-label">Nome do cliente:</label>
                 <input type="text" name="nome" class="form-control" placeholder="Digite o nome" v-model="nomeCliente">
@@ -37,6 +38,9 @@
 
 
 <script>
+
+import Message from './Message.vue'
+
 export default{
     name: 'FormCliente',
     data(){
@@ -47,7 +51,8 @@ export default{
             opcionaisBuger: [],
             opcoesPao: '',
             opcoesCarne: '',
-            opcoesOpcionais: []
+            opcoesOpcionais: [],
+            mensagemSucesso:''
         }
     }, 
     methods: {
@@ -60,12 +65,51 @@ export default{
             this.opcoesOpcionais = data.opcionais;
             
         },
-        truco(){
-            alert(this.opcionaisBuger)
+        async fazPedido(e){
+            e.preventDefault();
+
+            const data = {
+                nome: this.nomeCliente,
+                pao: this.pao,
+                carne: this.carneBurger,
+                opcionais: Array.from(this.opcionaisBuger),
+                status: 'Solicitado'
+            }
+
+            // Transformadno o json em texto
+            const dataJson = JSON.stringify(data);
+
+            // Enviando dados via API
+            const req = await fetch('http://localhost:3000/burgers', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: dataJson
+            });
+
+            // Obtendo resposta do envio dos dados
+            const res = await req.json();
+
+            //Modificando estados da mensagem de sucesso
+            this.mensagemSucesso = `Pedido Nº ${res.id} realizado com sucesso!`
+            setTimeout(() => this.mensagemSucesso = '', 3000)
+            
+            //Limpando campos para nova inserção
+            this.limpaCampos()
+
+        },
+        limpaCampos(){
+            this.nomeCliente = '',
+            this.paoBurger = '',
+            this.carneBurger = '',
+            this.opcionaisBuger = ''
         }
+
     },
     mounted(){
         this.getIgredientes();
+    },
+    components:{
+        Message
     }
 }
 </script>
