@@ -35,5 +35,8 @@ export default{
 h1{
   text-align: center;
 }
+li{
+  list-style-type: none;
+}
 
 </style>

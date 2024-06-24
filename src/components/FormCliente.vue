@@ -1,6 +1,6 @@
 <template>
     <div id="form-burger" class="d-flex justify-content-center mt-5">
-        <form class="col-4" @submit="fazPedido">
+        <form class="col-4" @submit="fazPedido">    
             <Message :msg="mensagemSucesso" v-show="mensagemSucesso"/>
             <div class="mb-4">
                 <label for="nome" class="form-label">Nome do cliente:</label>
