@@ -1,6 +1,6 @@
 <template>
   <div class="pedidos">
-    <h1>PEDIDOS</h1>
+    <h1 class="my-4">Gerenciamento de Pedidos</h1>
   </div>
   <TabelaPedidos/>
 </template>

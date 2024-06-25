@@ -27,7 +27,7 @@
                             <div class="d-inline-block">
                                 <select class="form-select" name="" id="">
                                     <option value="" select>Selecione o status do hamburger</option>
-                                    <option value="concluido">Concluído</option>
+                                    <option v-for="s in status_burger" :key="s.id" :value="s.tipo" :selected="burger.status === s.tipo">{{s.tipo}}</option>
                                 </select>
                             </div>
                             <button class="btn cancela">Cancelar</button>
@@ -54,10 +54,16 @@ export default{
             const req = await fetch('http://localhost:3000/burgers');
             const data = await req.json();
             this.burgers = data;
+        },
+        async getStatus(){
+            const req = await fetch('http://localhost:3000/status');
+            const data = await req.json();
+            this.status_burger = data;
         }
     },
     mounted(){
         this.getBurgers();
+        this.getStatus();
     }
 }
 </script>
